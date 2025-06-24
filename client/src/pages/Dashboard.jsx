@@ -6,6 +6,8 @@ import MultimodalInput from "@/components/kokonutui/multimodal-input";
 
 export default function Dashboard() {
   return (
+    <>
+      <div className="bg-red-500 custom-font2 pl-96">Notice :  LinkedIn and Facebook services are temporarily down. We're working on it.</div>
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-black dark:from-black dark:via-zinc-800/40 dark:to-black px-4">
       <motion.div
         className="absolute top-0 left-0 p-4 md:p-6 z-10" 
@@ -59,5 +61,6 @@ export default function Dashboard() {
         </motion.form>
       </div>
     </div>
+  </>
   );
 }
