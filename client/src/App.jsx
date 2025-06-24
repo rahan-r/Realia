@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard';
 import Report from './pages/Report';
 import NotFound from './pages/NotFound';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </>
   )
 }
