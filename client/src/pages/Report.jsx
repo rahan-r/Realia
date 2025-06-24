@@ -1,0 +1,141 @@
+import Logo from "@/components/Logo";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+import { cn } from "@/lib/utils";
+import { server_url } from "@/utils/API";
+
+function Report() {
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${server_url}/report/${id}`);
+        setData(response.data);
+      } catch (err) {
+        navigate("/report");
+        toast("Something went wrong");
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (!data) return toast("Something went wrong");
+
+  const {
+    created_at,
+    social_url,
+    result: {
+      claim_evaluated,
+      verdict,
+      detailed_analysis,
+      sources,
+      limitations,
+    },
+  } = data;
+
+  return (
+    <>
+      <section className="bg-gradient-to-br from-black via-zinc-900 to-black dark:from-black dark:via-zinc-800/40 dark:to-black">
+        <div className="flex justify-center pt-2.5">
+          <Logo />
+        </div>
+        <div className="p-8">
+          <div className="w-[1350px] mx-auto">
+            <div
+              className={cn(
+                "relative h-full rounded-3xl p-6",
+                "bg-white dark:bg-black/5",
+                "border border-zinc-200 dark:border-zinc-800",
+                "hover:border-zinc-300 dark:hover:border-zinc-700",
+                "transition-all duration-300"
+              )}
+            >
+              <div className="flex items-center mb-6">
+                <div>
+                  <h3 className="text-2xl pl-[495px] custom-font3 font-semibold text-zinc-900 dark:text-white">
+                    Credibility Report
+                  </h3>
+                </div>
+              </div>
+              <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                Claim Evaluated
+              </h6>
+              <div className="flex justify-between w-full">
+                <div className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md">
+                  {claim_evaluated} <br /> <br />
+                </div>
+              </div>
+              <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                Analysis Summary
+              </h6>
+              <div className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md">
+                {detailed_analysis?.summary} <br /> <br />
+              </div>
+              <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                Evidence
+              </h6>
+              <div className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md">
+                {detailed_analysis?.evidence_presentation} <br />
+                {detailed_analysis?.methodology_brief} <br /> <br />
+              </div>
+              <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                Final Verdict
+              </h6>
+              <div className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md">
+                {verdict} <br />
+              </div>
+              <div className="mt-8 space-y-6">
+                <div className="h-[5px] bg-linear-to-r from-transparent via-black dark:via-black to-transparent" />
+                <div>
+                  <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                    Limitations
+                  </h6>
+                  <div className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md">
+                    {limitations} <br /> <br />
+                  </div>
+                  <h6 className="text-xl custom-font text-zinc-900 font-bold">
+                    Sources
+                  </h6>
+                  {data?.result?.sources?.map((source, index) => (
+                    <div
+                      key={index}
+                      className="custom-font2 text-zinc-700 dark:text-zinc-300 text-md mb-4"
+                    >
+                      <p>
+                        <strong>{source.name}</strong>
+                      </p>
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600"
+                      >
+                        {source.title}
+                      </a>
+                      <p>{source.retrieval_date_or_publication_date}</p>
+                      <p>
+                        <em>{source.notes}</em>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className='flex justify-center text-gray-400 custom-font2 text-[12px] font-extralight'>
+      Generated by AI. Cross-check if needed.
+    </div> */}
+        <Toaster />
+      </section>
+    </>
+  );
+}
+
+export default Report;
