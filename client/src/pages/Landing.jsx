@@ -32,14 +32,14 @@ function Landing() {
             Verify what’s real and what’s not  Realia keeps the truth on your side.
           </p> */}
 
-            <ShimmerButton
-              className="h-9 w-64 text-[16px] text-black custom-font2 mt-11 ml-48"
-              onClick={handleButtonClick}
-            >
-              <a href="#link">
-                <span className="text-nowrap">Reveal What’s Real</span>
-              </a>
-            </ShimmerButton>
+            <div className="mt-11 flex justify-center">
+      <ShimmerButton
+        className="h-9 w-64 text-[16px] text-black custom-font2"
+        onClick={handleButtonClick}
+      >
+        <span className="whitespace-nowrap">Reveal What’s Real</span>
+      </ShimmerButton>
+    </div>
           </div>
 
           <div className="relative mt-12 overflow-hidden rounded-3xl bg-black/10 md:mt-16">
