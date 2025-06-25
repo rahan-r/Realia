@@ -25,7 +25,7 @@ function Landing() {
         <div className="relative z-10 mx-auto w-full max-w-2xl px-6 lg:px-0">
           <div className="relative text-center">
             <Logo className={"mx-auto size-14"} />
-            <h1 className="mx-auto mt-16 text-white leading-none text-[85px] custom-font">
+            <h1 className="mx-auto mt-16 text-white leading-none text-6xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[85px] custom-font">
               Reality Check. Simplified.
             </h1>
             {/* <p className="text-muted-foreground mx-auto mb-6 mt-4 text-balance text-[16px] custom-font2">
